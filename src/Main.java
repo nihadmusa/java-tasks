@@ -1,44 +1,61 @@
-import java.util.*;
+import java.util.List;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-//        Human human1 = new Human(20, "Nihad", "Musayev");
-//        Human human2 = new Human(15, "Ferid", "Musayev");
-//        Human human3 = new Human(25, "Habib", "Musayev");
-//        try {
-//            StudentList.addUser(human1);
-//            StudentList.addUser(human2);
-//            StudentList.addUser(human3);
-//        } catch (MyExp e) {
-//            System.out.println("Xeta: " + e.getMessage());
-//        }
-//        System.out.println(StudentList.users);
-        List<String> fruitWhiteList = List.of("alma", "armud", "banan", "heyva", "ciyelek");
-        Scanner sc = new Scanner(System.in);
-        Set<String> fruits = new HashSet<>();
 
+        Scanner sc = new Scanner(System.in);
+
+        User user1 = new User("1234567nihad", "nihad");
+        User user2 = new User("5aura", "aura");
+        User user3 = new User("olympic0", "olymp");
 
         while (true) {
-            String deyer = sc.nextLine();
-            if (deyer.equals("show")) {
-                for (String fruit : fruits) {
-                    System.out.println(fruit);
+            System.out.println("1 - Register\n" +
+                    "2 - Login\n" +
+                    "3 - Show Users\n" +
+                    "4 - Exit");
+            String choice = sc.nextLine();
+            try {
+                switch (choice) {
+                    case "1": {
+                        System.out.println("Yeni username: ");
+                        String username = sc.nextLine();
+                        System.out.println("Yeni password: ");
+                        String password = sc.nextLine();
+                        AuthService.register(new User(username, password));
+                        System.out.println("Qeydiyyat ugurlu oldu!");
+                        break;
+                    }
+                    case "2": {
+                        System.out.println("Yeni username: ");
+                        String username = sc.nextLine();
+                        System.out.println("Yeni password: ");
+                        String password = sc.nextLine();
+                        AuthService.login(username, password);
+                        System.out.println("Qeydiyyat ugurlu oldu!");
+                        break;
+                    }
+                    case "3": {
+                        AuthService.showUsers();
+                        break;
+                    }
+                    case "4": {
+                        System.exit(0);
+                    }
+                    default:
+                        System.out.println("Yanlis secim, tekrar coxun.");
 
                 }
-                continue;
+            } catch (AuthException e) {
+                System.out.println(e.getMessage());
             }
-                try {
-                    if (!fruitWhiteList.contains(deyer)) {
-                        throw new RuntimeException("Bu meyve adi kecərli deyil");
-                    }
-                } catch (RuntimeException e) {
-                    System.out.println(e.getMessage());
-                }
-                if (fruits.contains(deyer)) {
-                    System.out.println("bu meyve daha once elave edilib");
-                } else {
-                    fruits.add(deyer);
-                }
 
         }
-    }}
+
+    }
+
+
+}
+
+
