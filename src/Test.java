@@ -45,5 +45,15 @@ public class Test {
                 .max((a,b) -> a.getValue().compareTo(b.getValue()))
                 .get());
 
+        List<List<Integer>> list = List.of(
+                List.of(4, 2, 3, 4, 5, 6, 7, 8, 8, 8, 9, 4)
+        );
+        System.out.println(
+                list.stream()
+                        .flatMap(List::stream)
+                        .distinct()
+                        .filter(h -> h % 2 == 0).toList()
+        );
+
     }
 }
